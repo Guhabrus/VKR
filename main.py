@@ -1,5 +1,6 @@
 from array import array
 from itertools import count
+from re import I
 import cv2
 import os
 import shutil
@@ -12,7 +13,7 @@ Ver = "F6_"
 
 
 def join_data():
-    json_list = ["data5/","data2/", "data3/","data4/", "data1/"]
+    json_list = ["data1/","data2/", "data3/","data4/", "data5/"]
     images_a     = []
     categories_a = []
     annotation_a = []
@@ -22,15 +23,32 @@ def join_data():
     for file_name in json_list:
         with open(file_name + "result.json") as file:
             tmp_j = json.load(file)
+            print(len(tmp_j['images'] ))
+            print(len(tmp_j['annotations']) )
+            for i in range(len(tmp_j['images'])):
 
-            (tmp_j['images'][18])['id'] = count
+                tmp = i_id = (tmp_j['images'][i])['id'] 
+
+                for j in range(len(tmp_j['annotations'])):
+                    if(tmp_j['annotations'][j])['image_id'] == tmp:
+                        (tmp_j['annotations'][j])['image_id'] = count
+                        annotation_a.append(tmp_j['annotations'][j])
+
+                (tmp_j['images'][i])['id'] = count 
+                count+=1
+
+                images_a.append(tmp_j['images'][i])
+                
+                # print((tmp_j['images'][i])['id'] )
+                # print((tmp_j['annotations'][i])['image_id'] )
+            print(images_a[len(images_a)-1])
+            print(annotation_a[len(annotation_a)-1])
             
-            print((tmp_j['images'][18])['id'] )
-        break
+        
 
-    dic={'images': [], 'categories':categories_a, 'annotations':[]}
+    dic={'images': images_a, 'categories':categories_a, 'annotations':annotation_a}
     with open('settings.json', 'w') as outfile:
-        json.dump(dic, outfile,  sort_keys=True, indent=4)
+        json.dump(dic, outfile,  sort_keys=False, indent=4)
 
 
 
