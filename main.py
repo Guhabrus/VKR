@@ -1,11 +1,40 @@
+from array import array
 from itertools import count
 import cv2
 import os
 import shutil
-
-
+import json
+import numpy as np
 PATH = "/home/maksim/Myfolder/Magistr/VKR/image/Validate/"
 Ver = "F6_"
+
+
+
+
+def join_data():
+    json_list = ["data5/","data2/", "data3/","data4/", "data1/"]
+    images_a     = []
+    categories_a = []
+    annotation_a = []
+    
+    
+    count = 0
+    for file_name in json_list:
+        with open(file_name + "result.json") as file:
+            tmp_j = json.load(file)
+
+            (tmp_j['images'][18])['id'] = count
+            
+            print((tmp_j['images'][18])['id'] )
+        break
+
+    dic={'images': [], 'categories':categories_a, 'annotations':[]}
+    with open('settings.json', 'w') as outfile:
+        json.dump(dic, outfile,  sort_keys=True, indent=4)
+
+
+
+
 
 def get_group():
     for root, dirs, files in os.walk(PATH):
@@ -50,7 +79,10 @@ def rename():
                
             
 
+
 # work()
 # get_group()
 
-rename()
+# rename()
+
+join_data()
