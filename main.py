@@ -1,9 +1,10 @@
+from itertools import count
 import cv2
 import os
 import shutil
 
 
-PATH = "/home/maksim/Myfolder/Magistr/VKR/image/"
+PATH = "/home/maksim/Myfolder/Magistr/VKR/image/Validate/"
 Ver = "F6_"
 
 def get_group():
@@ -39,5 +40,17 @@ def work():
         # break
             
 
-work()
+def rename():
+    count = 1
+    for root, dirs, files in os.walk(PATH):
+            for filename in files:
+                print(PATH +filename)
+                os.rename(PATH+filename, PATH + str(count) + ".png")
+                count+=1
+               
+            
+
+# work()
 # get_group()
+
+rename()
