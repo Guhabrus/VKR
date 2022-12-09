@@ -51,6 +51,8 @@ def join_data():
         json.dump(dic, outfile,  sort_keys=False, indent=4)
 
 
+def do_xml():
+    xml_path = "archive"
 
 
 
@@ -103,4 +105,6 @@ def rename():
 
 # rename()
 
-join_data()
+# join_data()
+
+
